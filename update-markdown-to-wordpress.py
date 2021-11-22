@@ -17,7 +17,7 @@ from wordpress_xmlrpc.methods.posts import GetPosts, EditPost
 
 def find_post(filepath, client):
     """
-    find the post in WordPress, filepath
+    find the post in WordPress by using filename in filepath as the searching title
     :param filepath: 更新用的文件路径
     :param client: 客户端
     :return True: if success
