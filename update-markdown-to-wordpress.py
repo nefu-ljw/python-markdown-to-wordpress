@@ -25,6 +25,10 @@ def find_post(filepath, client):
     filename = os.path.basename(filepath)  # 例如：test(2021.11.19).md
     filename_suffix = filename.split('.')[-1]  # 例如：md
     filename_prefix = filename.replace('.' + filename_suffix, '')  # 例如：test(2021.11.19)；注意：这种替换方法要求文件名中只有一个".md"
+    # 目前只支持 .md 后缀的文件
+    if filename_suffix != 'md':
+        print('ERROR: not Markdown file')
+        return None
     # get pages in batches of 20
     offset = 0  # 每个batch的初始下标位置
     batch = 20  # 每次得到batch个post，存入posts中
@@ -76,4 +80,4 @@ if __name__ == '__main__':
         else:
             print('FAILURE to update the file: "%s"' % filepath)
     else:
-        print('FAILURE to find the post. Please check your User Configuration and the title in your WordPress')
+        print('FAILURE to find the post. Please check your User Configuration and the title in your WordPress.')
