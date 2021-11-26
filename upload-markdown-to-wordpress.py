@@ -31,14 +31,6 @@ def make_post(filepath, metadata):
     :return WordPressPost: if success
             None: if failure
     """
-    # 1 通过frontmatter.load函数加载读取文档里的信息，包括元数据
-    post_from_file = frontmatter.load(filepath)
-
-    # 2 markdown库导入内容
-    post_content_html = markdown.markdown(post_from_file.content, extensions=['markdown.extensions.fenced_code'])
-    post_content_html = post_content_html.encode("utf-8")
-
-    # 3 将本地post的元数据暂存到metadata中
     filename = os.path.basename(filepath)  # 例如：test(2021.11.19).md
     filename_suffix = filename.split('.')[-1]  # 例如：md
     filename_prefix = filename.replace('.' + filename_suffix, '')  # 例如：test(2021.11.19)；注意：这种替换方法要求文件名中只有一个".md"
@@ -47,6 +39,14 @@ def make_post(filepath, metadata):
     if filename_suffix != 'md':
         return None
 
+    # 1 通过frontmatter.load函数加载读取文档里的信息，包括元数据
+    post_from_file = frontmatter.load(filepath)
+
+    # 2 markdown库导入内容
+    post_content_html = markdown.markdown(post_from_file.content, extensions=['markdown.extensions.fenced_code'])
+    post_content_html = post_content_html.encode("utf-8")
+
+    # 3 将本地post的元数据暂存到metadata中
     metadata['title'] = filename_prefix  # 将文件名去掉.md后缀，作为标题
     # metadata['slug'] = metadata['title']  # 别名
     metadata_keys = metadata.keys()
